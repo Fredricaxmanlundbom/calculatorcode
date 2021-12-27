@@ -8,16 +8,19 @@
 
 <script>
 let trailingResult = 0;
+let operationOptions = ['equals','add','subtract','multiply','decimal','divide'];
 
 function updateDisplay(input) {
   let display = document.getElementById("display");
 
-if (display.innerHTML === '0') {
+if (display.innerHTML === '0' && operationOptions.indexOf(input) === -1) {
   display.innerHTML = input;
-} else if (input === "add") {
+} else if (operationOptions.indexOf(input) >= 0) {
   trailingResult = display.innerHTML
   display.innerHTML = 0;
-
+} else if (input === "equals") {
+  display.innerHTML = parseFloat(trailingResult) + parseFloat(display.innerHTML);
+  trailingResult = display.innerHTML
 } else {
   display.innerHTML += input
   }
@@ -79,7 +82,7 @@ function clearDisplay(clear) {
 <a id="divide" class="btn btn-block btn-secondary"onClick="updateDisplay('divide')">/</a>
 <a id="multiply" class="btn btn-block btn-secondary"onClick="updateDisplay('multiply')">*</a>
 <a id="decimal" class="btn btn-block btn-secondary"onClick="updateDisplay('decimal')">.</a>
-<a id="equals" class="btn btn-block btn-primary"onClick="updateDisplay('equal')">=</a>
+<a id="equals" class="btn btn-block btn-primary"onClick="updateDisplay('equals')">=</a>
 <a id="clear" class="btn btn-block btn-warning" onClick="clearDisplay(0)">Clear</a>
 </div></div></div>
 
