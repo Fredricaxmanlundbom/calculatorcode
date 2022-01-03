@@ -14,20 +14,24 @@
 
     function updateDisplay(input) {
       let display = document.getElementById("display");
+      let secondaryDisplay = document.getElementById("secondarydDisplay");
+
 
       if (display.innerHTML === '0' && operationOptions.indexOf(input) === -1) {
         display.innerHTML = input;
       } else if (operationOptions.indexOf(input) >= 0) {
 
-        //Dealing with an inital operand
+        //Dealing wihthout an operand
         if (workingOperation  === "") {
           workingOperation = input;
-          trailingResult = display.innerHTML
+          trailingResult = display.innerHTML;
           display.innerHTML = 0;
-      } else { //Dealing with a set operand
-        trailingResult = calculate(trailingResult, display.innerHTML, workingOperation)
-        display.innerHTML = trailingResult;
-        workingOperation = "";
+      } else {
+        //Dealing with a set operand
+        workingOperation = input;
+        trailingResult = calculate(trailingResult, display.innerHTML, workingOperation);
+        secondaryDisplay.innerHTML = 0;
+        display.innerHTML = 0;
       }
     }  else if (input === "equals") {
         display.innerHTML = calculate(trailingResult, display.innerHTML,workingOperation);
@@ -48,7 +52,7 @@
       secondNumber = parseFloat(secondNumber);
       switch (operation) {
         case "add":
-          result = firstNumber + secondNumber;
+          result = firstNumber + secondNumber;a
           break;
         case "subtract":
           result = firstNumber - secondNumber;
@@ -62,6 +66,7 @@
       }
       return result.toString();
     }
+
   </script>
 </head>
 
@@ -76,13 +81,15 @@
     </div>
 
     <div class="row text-center">
-      <div class="col">
-        <div id="display" class="bg-info text-white py-5 my-3">0</div>
+          <div class="col-10">
+            <div id="display" class="bg-info text-white my-5 py-3">0</div>
+          <div class="col-2">
+            <div id="secondaryDisplay" class="bg-secondary text-white my-5 py-3">0</div>
       </div>
     </div>
 
 
-    <div class="row text-center py-1">
+    <div class="row text-center">
       <div class="col">
         <a id="one" class="btn btn-block btn-primary" onClick="updateDisplay(1)">1</a>
         <a id="two" class="btn btn-block btn-primary" onClick="updateDisplay(2)">2</a>
